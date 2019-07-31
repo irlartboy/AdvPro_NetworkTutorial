@@ -5,9 +5,9 @@ using UnityEngine.Networking;
 
 public class LookScript : NetworkBehaviour
 {
-    public float mouseSensitivity = 2.0f;
+    public float mouseSensitivity = 30.0f;
 
-    public float minY = -90f;
+    public float minY = -60f;
     public float maxY = 90f;
 
     private float yaw = 0f;
@@ -33,8 +33,8 @@ public class LookScript : NetworkBehaviour
 
     void HandleInput()
     {
-        yaw   = Input.GetAxis("Mouse X") * mouseSensitivity;
-        pitch = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        yaw   += Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        pitch += Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         pitch = Mathf.Clamp(pitch, minY, maxY);
         
@@ -50,6 +50,7 @@ public class LookScript : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            transform.localEulerAngles = new Vector3(0, yaw, 0);
             mainCam.transform.localEulerAngles = new Vector3(-pitch, 0, 0);
         }
     }

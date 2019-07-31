@@ -8,7 +8,7 @@ public class PlayerScript : NetworkBehaviour
 
     public float movementSpeed = 10.0f;
     public float rotationSpeed = 10.0f;
-    public float jumpHeight = 2.0f;
+    public float jumpHeight = 7.0f;
     private bool isGrounded = false;
     private Rigidbody rigid;
 
@@ -46,10 +46,12 @@ public class PlayerScript : NetworkBehaviour
                 posistion += -transform.forward * movementSpeed * Time.deltaTime;
                 break;
             case KeyCode.A:
-                rotation *= Quaternion.AngleAxis(-rotationSpeed, Vector3.up);
+                // rotation *= Quaternion.AngleAxis(-rotationSpeed, Vector3.up);
+                posistion += -transform.right * movementSpeed * Time.deltaTime;
                 break;
             case KeyCode.D:
-                rotation *= Quaternion.AngleAxis(rotationSpeed, Vector3.up);
+                // rotation *= Quaternion.AngleAxis(rotationSpeed, Vector3.up);
+                posistion += transform.right * movementSpeed * Time.deltaTime;
                 break;
             case KeyCode.Space:
                 if (isGrounded)
